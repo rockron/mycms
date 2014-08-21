@@ -1,0 +1,79 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>My CMS</title>
+<link href="admin/css/style.css" rel="stylesheet"/>
+<link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet"/>
+<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+
+
+
+<script type="text/javascript">  /* attach a submit handler to the form */ 
+	$(document).ready(function () {
+		$("#itemsort").val("bydate");
+		  $.myid = {};
+    $.myid.sorttype = "bydate";
+ get_list();
+$("#itemsort").change(function() {
+     $("#prod_list").html("");
+	 $.myid.sorttype= $('option:selected', this).val() ;   
+	 get_list();
+	 
+});
+
+
+	});
+function get_list(){
+	var sorttype=$.myid.sorttype;
+	 $.getJSON("get_items.php", {sorttype:sorttype},function (data) {
+                $.each(data, function (i, item) {
+					
+				 
+				 $("#prod_list").append("<table border=1 class='list_table'><tr><td rowspan=3 width=80><img src='http://www.rockron.com/mycms/admin/photos/thumbs/"+item.image+"' /></td><td> " +item.title + "</td></tr><tr><td><strong>Price: </strong>"+item.price+"</td></tr><tr><td><strong>Description: </strong><br>"+item.description+"</td></tr></table><br><br>");
+					
+					
+				  
+				  
+				
+				  
+                });
+            });
+		
+
+}
+
+</script>
+</head>
+
+<body>
+<div id="banner">MY CMS</div>
+<div id="main">
+
+ <div id="widget-container">
+ <a href="admin/" class="btn btn-default btn-lg">Login</a>
+  <div class="widget-content">
+   <div class="widget-title">
+         <h3>List of products</h3>
+         Sort by: <select id="itemsort" name="itemsort">
+         <option value="bydate" selected>By Date</option>
+         	<option value="alpha">By Name</option>
+         
+    	
+</select>
+   </div>
+   <div class="widget-text">
+<div  id="prod_list" >
+
+
+
+
+</div>
+
+</div>
+</div>
+</div>
+</div>
+
+</body>
+</html>
