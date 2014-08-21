@@ -1,7 +1,5 @@
 <?php
-// The request is a JSON request.
-// We must read the input.
-// $_POST or $_GET will not work!
+
 
 include "admin/db.php";
 
